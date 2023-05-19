@@ -29,15 +29,10 @@ async def homepage(request):
 
     # return templates.TemplateResponse('index.html', {'request': request, 'recommendations': recommendations})
     template = templates.get_template('index.html')
-    recommendations_t = templates.get_template('partials/_item.html')
-    foo = recommendations_t.generate(items=recommendations)
     return StreamingResponse(
         content=template.generate_async(
             request=request,
             recommendations=slow_recommendations(),
-            # foo=recommendations.generate_async(items=slow_recommendations())
-            # foo=recommendations_t.generate_async(items=recommendations)
-            foo=foo
         ),
         media_type='text/html',
     )
