@@ -43,6 +43,55 @@
       }
     }
   </script>
+  <style>
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%)
+      }
+      100% {
+        transform: translateX(100vw)
+      }
+    }
+
+    .skel:not(:has(>*~*~*~*)) {
+      position: relative;
+      background-repeat: no-repeat;
+      background-image: linear-gradient(#eee 0, #dfe1e1 95%),
+      linear-gradient(#eee 0, #dfe1e1 95%),
+      linear-gradient(#eee 0, #dfe1e1 95%),
+      linear-gradient(#eee 0, #dfe1e1 95%),
+      linear-gradient(#f9f9f9 0, #fefefe 95%),
+      linear-gradient(#f9f9f9 0, #fefefe 95%),
+      linear-gradient(#f9f9f9 0, #fefefe 95%),
+      linear-gradient(#f9f9f9 0, #fefefe 95%);
+      background-size: 22% 52.6%,
+      22% 52.6%,
+      22% 51.6%,
+      22% 52.6%,
+      22% 100%,
+      22% 100%,
+      22% 100%,
+      22% 100%;
+      background-position: left top,
+      left 33.4% top,
+      left 66.8% top,
+      left 100% top,
+      left top,
+      left 33.4% top,
+      left 66.8% top,
+      left 100% top;
+    }
+
+    .skel:not(:has(>*+*+*+*)):before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 3rem;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+      animation: shimmer 2.5s linear infinite;
+    }
+
+  </style>
 
 </head>
 

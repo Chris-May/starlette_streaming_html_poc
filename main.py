@@ -4,7 +4,7 @@ import time
 
 from jinja2 import Environment, FileSystemLoader
 from starlette.applications import Starlette
-from starlette.responses import StreamingResponse, Response
+from starlette.responses import StreamingResponse, Response, HTMLResponse
 from starlette.routing import Route, Mount
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
@@ -49,16 +49,7 @@ async def slow_recommendations():
 
 
 def choose_view(request):
-    return Response(
-        content=(
-            '<ul>'
-            '<li><a href="/block">blocking</a></li>'
-            '<li><a href="/stream-sections">stream sections</a></li>'
-            '<li><a href="/stream-items">stream items</a></li>'
-            '<li><a href="/skel">stream items with skeletons</a></li>'
-            '</ul>'),
-        media_type='text/html'
-    )
+    return templates.TemplateResponse(request, 'loading_screen.html')
 
 
 async def blocking(request):
@@ -95,6 +86,7 @@ async def stream_skeletons(request):
         content=template.generate_async(
             request=request,
             recommendations=slow_recommendations(),
+            more_classes='skel'
         ),
         media_type='text/html',
     )
